@@ -1,0 +1,33 @@
+id: io.github.VictorIX.BlenderLauncherV2
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: BlenderLauncher
+modules:
+  - name: blenderlauncher
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 Blender\ Launcher /app/bin/BlenderLauncher
+      - install -Dm644 ${FLATPAK_ID}.desktop -t /app/share/applications
+      - install -Dm644 bl_256.png /app/share/icons/hicolor/256x256/apps/${FLATPAK_ID}.png
+    sources:
+      - type: archive
+        url: https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.3.2/Blender_Launcher_v2.3.2_Ubuntu_x64.zip
+        sha256: 1e3ea8f33ea041a1040f8f34eb07f3d8acdf49e6fafa32bc864e38e111060b01
+      - type: file
+        path: io.github.VictorIX.BlenderLauncherV2.desktop
+      - type: file
+        path: bl_256.png
+finish-args:
+  # X11 + XShm access
+  - --share=ipc
+  - --socket=fallback-x11
+  # Wayland access
+  - --socket=wayland
+  # Needs to talk to the network:
+  - --share=network
+  # Needs to save files locally
+  - --filesystem=xdg-config
+  - --filesystem=xdg-cache
+  - --filesystem=home
+  # - --filesystem=??? # The max scope the library folder could be located, like `home`, `host`, `/mnt`, ...

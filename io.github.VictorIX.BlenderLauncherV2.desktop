@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Blender Launcher V2
+GenericName=Launcher
+Exec=/app/bin/BlenderLauncher
+Terminal=true
+Icon=io.github.VictorIX.BlenderLauncherV2
+Type=Application
